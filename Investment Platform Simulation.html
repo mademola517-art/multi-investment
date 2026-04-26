@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Investment Platform Simulation</title>
+    <style>
+    body { font-family: Arial, sans-serif; background: gold; padding: 20px; }
+    .container { max-width: 500px; margin: auto; background: gold; padding: 20px; border-radius: 8px; }
+    h2 { text-align: center; }
+    input, select, button { width: 100%; padding: 10px; margin: 5px 0; }
+    .balance { font-size: 1.2em; font-weight: bold; margin: 10px 0; }
+</style> </head>
+  <body>
+    <div class="container">
+      <h2>Investment Platform</h2>
+      <div class="balance">Balance: $<span id="balance">0.00</span></div>
+      <h3>Make an Investment</h3>
+      <input id="amount" placeholder="Enter amount to invest" min="1" type="number">
+      <select id="frequency">
+        <option value="daily">Daily</option>
+        <option value="monthly">Monthly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+      <button onclick="invest()">Invest</button>
+      <h3>Withdraw Funds</h3>
+      <input id="withdrawAmount" placeholder="Enter amount to withdraw" min="1000"
+        type="number"> <button onclick="withdraw()">Withdraw</button> </div>
+    <script>
+let balance = ;
+let investments = [];
+
+// Function to update balance display
+function updateBalance() {
+    document.getElementById("balance").textContent = balance.toFixed(2);
+}
+
+// Function to invest money
+function invest() {
+    let amount = parseFloat(document.getElementById("amount").value);
+    let frequency = document.getElementById("frequency").value;
+
+    if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid investment amount.");
+        return;
+    }
+
+    let now = new Date();
+    let nextPayout = new Date(now);
+
+    if (frequency === "daily") nextPayout.setDate(now.getDate() + 1);
+    else if (frequency === "monthly") nextPayout.setMonth(now.getMonth() + 1);
+    else if (frequency === "yearly") nextPayout.setFullYear(now.getFullYear() + 1);
+
+    investments.push({
+        amount: amount,
+        frequency: frequency,
+        nextPayout: nextPayout
+    });
+
+    alert(`You invested $${amount.toFixed(2)} with ${frequency} payouts.`);
+    document.getElementById("amount").value = "";
+}
+
+// Function to withdraw money
+function withdraw() {
+    let amount = parseFloat(document.getElementById("withdrawAmount").value);
+
+    if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid withdrawal amount.");
+        return;
+    }
+    if (amount > balance) {
+        alert("Insufficient balance.");
+        return;
+    }
+
+    balance -= amount;
+    updateBalance( );
+    alert(`You withdrew $${amount.toFixed(2)}.`);
+    document.getElementById("withdrawAmount").value = "";
+}
+       }
+
+        // Simulate withdrawal success
+        alert(`✅ Withdrawal Successful!\n\nName: ${name}\nAmount: ₦${amount}\n\nYour payment has been processed.`);
+        
+        // Optionally clear form
+        this.reset();
+    });
+      
+      
+
+// Function to check payouts
+function checkPayouts() {
+    let now = new Date();
+
+    investments.forEach(inv => {
+        if (now >= inv.nextPayout) {
+            let reward = inv.amount * 0.10; // 10% reward
+            balance += reward;
+            updateBalance();
+            alert(`It's time to claim your investment reward! You earned $${reward.toFixed(2)}.`);
+
+            // Set next payout date
+            if (inv.frequency === "daily") inv.nextPayout.setDate(inv.nextPayout.getDate() + 1);
+            else if (inv.frequency === "monthly") inv.nextPayout.setMonth(inv.nextPayout.getMonth() + 1);
+            else if (inv.frequency === "yearly") inv.nextPayout.setFullYear(inv.nextPayout.getFullYear() + 1);
+        }
+    });
+}
+
+// Check payouts every 5 seconds (for demo purposes)
+setInterval(checkPayouts, 5000);
+      
+</script> <script>
+    document.getElementById("withdrawForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form from refreshing page
+
+        const name = document.getElementById("name").value.trim();
+        const amount = document.getElementById("amount").value.trim();
+
+        // Basic validation
+        if (!name || !amount || amount <= 0) {
+            alert("Please enter a valid name and amount.");
+            return;
+        }
+
+        // Simulate withdrawal success
+        alert(`✅ Withdrawal Successful!\n\nName: ${name}\nAmount: ₦${amount}\n\nYour payment has been processed.`);
+        
+        // Optionally clear form
+        this.reset();
+    });
+      
+</script><a href="../templatemo_609_crypto_vault/the%20wallet%20crypto.html">Back
+      to home</a>
+  </body>
+</html>

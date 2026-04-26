@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Gold Swap</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background: gold;
+        padding: 20px;
+        text-align: center;
+    }
+    .container {
+        background: gold;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 400px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    input, button {
+        padding: 10px;
+        margin: 10px 0;
+        width: 90%;
+        font-size: 16px;
+    }
+    button {
+        background: #28a745;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #218838;
+    }
+</style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Gold to Currency Swap</h2>
+      <p>Your Balance: <strong id="balance">0</strong> USD</p>
+      <input id="goldAmount" placeholder="Enter gold amount" min="1" type="number">
+      <button onclick="swapGold()">Swap Now</button>
+    </div>
+    <script>
+    // Load balance from localStorage or set to 0
+    let balance = parseFloat(localStorage.getItem("balance")) || 0;
+    document.getElementById("balance").textContent = balance.toFixed(2);
+
+    function swapGold() {
+        let goldAmount = parseFloat(document.getElementById("goldAmount").value);
+        if (isNaN(goldAmount) || goldAmount <= 0) {
+            alert("Please enter a valid gold amount.");
+            return;
+        }
+
+        let today = new Date().toDateString();
+        let lastSwapDate = localStorage.getItem("lastSwapDate");
+
+        if (lastSwapDate === today) {
+            alert("Come back within 24hrs                                                                        to swap for more.");
+            return;
+        }
+
+        // Example conversion rate: 1 gold = 50 USD
+        let conversionRate = 50;
+        let currencyAmount = goldAmount * conversionRate;
+
+        // Update balance
+        balance += currencyAmount;
+        localStorage.setItem("balance", balance);
+        localStorage.setItem("lastSwapDate", today);
+
+        // Update UI
+        document.getElementById("balance").textContent = balance.toFixed(2);
+        alert(`You swapped ${goldAmount} gold for ${currencyAmount.toFixed(2)} USD.`);
+        document.getElementById("goldAmount").value = "";
+    }
+</script>
+  </body>
+</html>

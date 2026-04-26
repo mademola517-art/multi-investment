@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: gold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .withdraw-container {
+            background: gold;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: gold;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="withdraw-container">
+      <h2>Withdraw Funds</h2>
+      <form id="withdrawForm"> <label for="name">Full Name:</label> <input id="name"
+          placeholder="Enter your name" required="" type="text"> <label for="amount">Amount
+          (₦):</label> <input id="amount" placeholder="Enter amount" min="1000"
+          required="required" max="200,000" type="number"> <button type="submit">Withdraw</button>
+      </form>
+    </div>
+    <script>
+    document.getElementById("withdrawForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form from refreshing page
+
+        const name = document.getElementById("name").value.trim();
+        const amount = document.getElementById("amount").value.trim();
+
+        // Basic validation
+        if (!name || !amount || amount <= 0) {
+            alert("Please enter a valid name and amount.");
+            return;
+        }
+
+        // Simulate withdrawal success
+        alert(`✅ Withdrawal Successful!\n\nName: ${name}\nAmount: ₦${amount}\n\nYour payment has been processed.`);
+        
+        // Optionally clear form
+        this.reset();
+    });
+      
+</script> <a href="file:///C:/Users/User/Downloads/templatemo_609_crypto_vault/templatemo_609_crypto_vault/the%20wallet%20crypto.html">Back
+      to Home</a>
+  </body>
+</html>
